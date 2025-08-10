@@ -1,36 +1,141 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SkipUp Frontend
+
+A multi-tenant blog platform that allows organizations to create and manage their content with secure authentication and organization-based access control.
+
+## Features
+
+- **Multi-tenant Architecture**: Users can belong to multiple organizations
+- **Organization-based Content**: Each organization has its own isolated blog space
+- **User Authentication**: Complete auth flow powered by Clerk
+- **Modern UI**: Built with Radix UI components and Tailwind CSS
+- **Type-safe Database**: PostgreSQL with Drizzle ORM
+- **Real-time Development**: Fast refresh with Turbopack
+
+## Tech Stack
+
+- **Framework**: Next.js 15.4.6 with App Router
+- **Frontend**: React 19, TypeScript
+- **Styling**: Tailwind CSS, Radix UI
+- **Authentication**: Clerk
+- **Database**: PostgreSQL with Drizzle ORM
+- **Development**: Turbopack
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- Node.js 18+ 
+- pnpm (recommended)
+- Docker and Docker Compose
+
+### Installation
+
+1. Install dependencies:
+   ```bash
+   pnpm install
+   ```
+
+2. Set up environment variables:
+   ```bash
+   cp .env.example .env.local
+   ```
+   Add your Clerk API keys and database connection string.
+
+3. Start the database:
+   ```bash
+   docker-compose up -d
+   ```
+
+4. Push database schema:
+   ```bash
+   pnpm db:push
+   ```
+
+5. Run the development server:
+   ```bash
+   pnpm dev
+   ```
+
+Open [http://localhost:3000](http://localhost:3000) to view the application.
+
+## Available Scripts
+
+- `pnpm dev` - Start development server with Turbopack
+- `pnpm build` - Build for production  
+- `pnpm start` - Start production server
+- `pnpm lint` - Run ESLint
+- `pnpm db:studio` - Open Drizzle Studio
+- `pnpm db:push` - Push schema changes to database
+
+## Project Structure
+
+```
+├── app/                    # Next.js App Router
+│   ├── component/         # Shared components
+│   ├── org/[slug]/        # Organization-specific pages
+│   └── page.tsx           # Landing page
+├── components/            # UI components
+│   └── ui/               # Radix UI components
+├── db/                   # Database configuration
+│   ├── index.ts          # Database connection
+│   └── schema.ts         # Drizzle schema
+├── hooks/                # Custom React hooks
+├── lib/                  # Utility functions
+└── docker-compose.yml    # Local PostgreSQL setup
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Database
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The application uses PostgreSQL with a simple blog schema:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **blog** table: `id`, `title`, `body`, `orgId`
 
-## Learn More
+Each blog post is associated with an organization, ensuring content isolation between different organizations.
 
-To learn more about Next.js, take a look at the following resources:
+## Authentication
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Authentication is handled by Clerk, providing:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- User sign-up/sign-in
+- Organization management
+- Organization switching
+- Protected routes
 
-## Deploy on Vercel
+## Development
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Database Management
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- View your database: `pnpm db:studio`
+- Update schema: `pnpm db:push`
+- Local database runs on port 5432
+
+### Code Style
+
+- ESLint configuration included
+- TypeScript strict mode enabled
+- Tailwind CSS for styling
+
+## Deployment
+
+This is a Next.js application that can be deployed on:
+
+- Vercel (recommended)
+- Netlify
+- Any Node.js hosting platform
+
+Make sure to:
+1. Set up your production database
+2. Configure environment variables
+3. Run database migrations
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Run tests and linting
+5. Submit a pull request
+
+## License
+
+[Add your license information here]

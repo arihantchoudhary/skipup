@@ -20,7 +20,7 @@ const Nav: React.FC = () => {
         <h1 className="font-semibold text-2xl">SkipUp</h1>
       </div>
       <div className="flex gap-5">
-        <OrganizationSwitcher afterSelectOrganizationUrl="org/:slug" />
+        <OrganizationSwitcher afterSelectOrganizationUrl="/org/:slug" />
         <UserButton />
       </div>
     </nav>
